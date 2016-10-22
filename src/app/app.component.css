@@ -1,0 +1,14 @@
+.full-height {
+    overflow: hidden;
+    height: 1000px;
+}
+.side {
+    height: 100%;
+    background-color: lightgoldenrodyellow;
+}
+.left {
+    width: 20%;
+}
+.right {
+    width: 30%;
+}

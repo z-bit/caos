@@ -1,21 +1,43 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
+
+import { StoreService } from './shared/store/store.service';
 
 @Component({
   selector: 'app-root',
-  template: `
-    <md-toolbar color="primary">Test</md-toolbar>
-    <h1>{{title}}</h1>
-    <button md-raised-button color="accent">Click</button>
-    <br><hr>
-<!--    
-<a [routerLink]=" ['/'] ">Home</a>
-<a [routerLink]=" ['/training'] ">Training</a>
-<br><hr>
-<router-outlet></router-outlet>
--->
-  `,
-  styleUrls: ['./app.component.css']
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+
 })
 export class AppComponent {
-  title = 'cAos';
+    title = 'cAos';
+    firma;
+    user;
+
+  constructor(
+      router: Router,
+      private storeService: StoreService,
+      store: Store<any>
+  ) {
+      storeService.setFirma();
+      this.firma = store.select('firma');
+      this.user = store.select('user');
+
+      this.firma.subscribe(
+          data => {
+              if (data.fa !== '') router.navigate(['/login']);
+          }
+      );
+
+      this.user.subscribe(
+          data => {
+              if (data.error !== '') router.navigate(['/login']);
+          }
+      )
+  }
+
+  abmelden() {
+      this.storeService.abmelden();
+  }
 }

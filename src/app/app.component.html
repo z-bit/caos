@@ -1,0 +1,22 @@
+<md-toolbar color="primary">
+    <button md-button (click)="left.toggle()">left</button>
+    <button md-button (click)="right.toggle()">right</button>
+    <button md-button [routerLink]="['/login']">Login</button>
+    <button md-button [routerLink]="['/']">Caos</button>
+    cAos
+</md-toolbar>
+
+<md-sidenav-layout class="full-height">
+    <md-sidenav align="start"  mode="side" opened="true" class="side left" #left>
+        <firma [firma]="firma | async"></firma>
+        <user
+                [user]="user |async"
+                (abmelden)="abmelden()"
+        ></user>
+    </md-sidenav>
+
+    <div class="full-height">
+
+        <router-outlet></router-outlet>
+    </div>
+</md-sidenav-layout>
